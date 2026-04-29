@@ -1,9 +1,17 @@
 const express = require("express");
-const db = require("./db");
 const app = express();
 const PORT = 3000;
 
+// Middleware
 app.use(express.json());
+
+// Routerləri çağırmaq
+const categoryRoutes = require("./routes/categoryRoutes");
+const productRoutes = require("./routes/productRoutes");
+
+// Marşrutları tətbiqə qoşmaq
+app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
@@ -11,18 +19,4 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
-
-// WEEK 5 ACTIVITY: Get products from Database
-app.get("/products", (req, res) => {
-    const sql = "SELECT * FROM products";
-    
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).send("Error fetching products");
-        }
-        // This sends your MySQL data to the web page
-        res.json(results);
-    });
 });
