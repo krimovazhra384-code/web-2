@@ -1,0 +1,21 @@
+-- CREATE DATABASE texnologiya_db;
+-- USE texnologiya_db;
+
+-- CREATE TABLE sirketler (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     ad VARCHAR(100) NOT NULL,
+--     olkə VARCHAR(50) DEFAULT 'ABŞ',
+--     merkez_qerargah VARCHAR(100),
+--     tesis_ili INT,
+--     bazar_deyeri_milyard DECIMAL(10, 2), -- Məsələn: 2500.50 milyard $
+--     vebsayt VARCHAR(255),
+--     logo_linki VARCHAR(500)
+-- );
+
+-- INSERT INTO sirketler (ad, merkez_qerargah, tesis_ili, bazar_deyeri_milyard, vebsayt, logo_linki)
+-- VALUES
+-- ("Apple", "Cupertino, Kaliforniya", 1976, 3000.00, "apple.com", "https://logo.clearbit.com/apple.com"),
+-- ("Microsoft", "Redmond, Vaşinqton", 1975, 2800.00, "microsoft.com", "https://logo.clearbit.com/microsoft.com"),
+-- ("NVIDIA", "Santa Clara, Kaliforniya", 1993, 2200.00, "nvidia.com", "https://logo.clearbit.com/nvidia.com"),
+-- ("Google (Alphabet)", "Mountain View, Kaliforniya", 1998, 1800.00, "google.com", "https://logo.clearbit.com/google.com"),
+-- ("Tesla", "Austin, Texas", 2003, 600.00, "tesla.com", "https://logo.clearbit.com/tesla.com");
