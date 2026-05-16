@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "your_password",
+  password: "2805",
   database: "ecommerce_db"
 });
 
@@ -22,8 +22,8 @@ module.exports = db;
 const texnoDb = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "your_password",
-  database: "texnologiya_db" // Bura yeni bazanın adını yazdıq
+  password: "2805",
+  database: "texnologiya_db" 
 });
 
 texnoDb.connect((err) => {
@@ -34,5 +34,5 @@ texnoDb.connect((err) => {
   console.log("Connected to Texnologiya MySQL");
 });
 
-// Hər iki bağlantını digər fayllarda istifadə edə bilmək üçün obyekt şəklində ixrac edirik
+
 module.exports = { db, texnoDb };
