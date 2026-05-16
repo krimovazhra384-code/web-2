@@ -1,23 +1,21 @@
+
 const express = require("express");
-const db = require("./db");
+const { db } = require("./db");
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 
+
+const texnologiyaRouter = require("./routes/texnologiyaRoutes");
+app.use("/texnologiyalar", texnologiyaRouter);
+
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
 app.get("/products", (req, res) => {
     const sql = "SELECT * FROM products";
-
-const texnologiyaRouter = require("./routes/texnologiyaRoutes");
-app.use("/texnologiyalar", texnologiyaRouter);
     
     db.query(sql, (err, results) => {
         if (err) {
@@ -27,4 +25,8 @@ app.use("/texnologiyalar", texnologiyaRouter);
    
         res.json(results);
     });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
