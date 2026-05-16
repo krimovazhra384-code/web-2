@@ -1,21 +1,22 @@
 const db = require("../db");
 
-// GET all products
+
 exports.getAllProducts = (req, res) => {
-  // Not: Kategorinin adını da görmek istersen JOIN kullanabilirsin
   const sql = "SELECT * FROM products";
 
   db.query(sql, (err, result) => {
     if (err) {
       return res.status(500).json({ message: "Error getting products" });
     }
+
     res.json(result);
   });
 };
 
-// GET product by id
+
 exports.getProductById = (req, res) => {
   const id = req.params.id;
+
 
   if (isNaN(id)) {
     return res.status(400).json({ message: "Invalid ID" });
@@ -36,23 +37,35 @@ exports.getProductById = (req, res) => {
   });
 };
 
-// CREATE product
 exports.createProduct = (req, res) => {
   const { name, price, category_id } = req.body;
 
-  // Validation: Name
-  if (!name || name.trim() === "" || name.length < 3) {
-    return res.status(400).json({ message: "Name must be at least 3 characters" });
+ 
+  if (!name || name.trim() === "") {
+    return res.status(400).json({
+      message: "Name is required"
+    });
   }
 
-  // Validation: Price
-  if (!price || isNaN(price) || price <= 0) {
-    return res.status(400).json({ message: "Valid price is required" });
+ 
+  if (name.length < 3) {
+    return res.status(400).json({
+      message: "Name must be at least 3 characters"
+    });
   }
 
-  // Validation: category_id
+
+  if (price === undefined || isNaN(price) || price <= 0) {
+    return res.status(400).json({
+      message: "Valid price is required and must be greater than 0"
+    });
+  }
+
+ 
   if (!category_id || isNaN(category_id)) {
-    return res.status(400).json({ message: "Valid Category ID is required" });
+    return res.status(400).json({
+      message: "Valid Category ID is required"
+    });
   }
 
   const sql = "INSERT INTO products (name, price, category_id) VALUES (?, ?, ?)";
@@ -70,18 +83,39 @@ exports.createProduct = (req, res) => {
   });
 };
 
-// UPDATE product
+
 exports.updateProduct = (req, res) => {
   const id = req.params.id;
   const { name, price, category_id } = req.body;
+
 
   if (isNaN(id)) {
     return res.status(400).json({ message: "Invalid ID" });
   }
 
-  // Basic validation check
-  if (!name || !price || !category_id) {
-    return res.status(400).json({ message: "Missing required fields" });
+  if (!name || name.trim() === "") {
+    return res.status(400).json({
+      message: "Name is required"
+    });
+  }
+
+  if (name.length < 3) {
+    return res.status(400).json({
+      message: "Name must be at least 3 characters"
+    });
+  }
+
+
+  if (price === undefined || isNaN(price) || price <= 0) {
+    return res.status(400).json({
+      message: "Valid price is required"
+    });
+  }
+
+  if (!category_id || isNaN(category_id)) {
+    return res.status(400).json({
+      message: "Valid Category ID is required"
+    });
   }
 
   const sql = "UPDATE products SET name = ?, price = ?, category_id = ? WHERE id = ?";
@@ -99,9 +133,10 @@ exports.updateProduct = (req, res) => {
   });
 };
 
-// DELETE product
+
 exports.deleteProduct = (req, res) => {
   const id = req.params.id;
+
 
   if (isNaN(id)) {
     return res.status(400).json({ message: "Invalid ID" });
